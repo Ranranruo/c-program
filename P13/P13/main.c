@@ -9,6 +9,7 @@
 #define DISCOUNT_RATE 0.5
 
 int main() {
+
     int carCount = 0;
     Car* cars = calloc(1, sizeof(Car));
     char menu[20] = "";
@@ -39,13 +40,24 @@ int main() {
 
             showEntry();
             printf("  Car isDiscount > ");
-            scanf("%d", &isDiscount);
+            scanf("%d", &isDiscount);   
 
-            Car car = { name, hour * 60 + minute, NULL, isDiscount };
+            Car car;
+
+            strcpy(car.name, name);
+            car.entryTime = hour * 60 + minute;
+            car.exitTime = -1;
+            car.isDiscount = isDiscount;
+
             entryCar(&cars, &carCount, car);
         }
         else if (strcmp(menu, "ViewCar") == 0) {
-            showView();
+            showView(cars, carCount);
+            printf("  Enter q > ");
+            scanf("%d", &menu);
+        }
+        else if (strcmp(menu, "ViewFee") == 0) {
+            showFee(cars, carCount);
             printf("  Enter q > ");
             scanf("%d", &menu);
         }
